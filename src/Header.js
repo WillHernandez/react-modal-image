@@ -45,7 +45,6 @@ const crossOriginDownload = href => event => {
 
 const deleteImage = href => event => {
   event.preventDefault();
-
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -58,18 +57,9 @@ const deleteImage = href => event => {
         console.error("Failed to delete image, HTTP status " + res.status +  " from " + href)
       }
 
-      // might work, might not
-      const element = event.target
-      element.remove()
-
-      return
-
-      // return res.blob().then(blob => {
-      //   let tmpAnchor = document.createElement("a")
-      //   tmpAnchor.setAttribute("download", href.split("/").pop())
-      //   tmpAnchor.href = URL.createObjectURL(blob)
-      //   tmpAnchor.click()
-      // })
+      // removes container div for image
+      const containerDiv = event.target.closest("ul > div")
+      containerDiv.remove()
     })
     .catch(err => {
       console.error(err)
