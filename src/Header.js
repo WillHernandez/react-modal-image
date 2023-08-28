@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ZoomInIcon, ZoomOutIcon, DownloadIcon, CloseIcon, RotateIcon } from "./icons";
+import { ZoomInIcon, ZoomOutIcon, DeleteIcon, DownloadIcon, CloseIcon, RotateIcon } from "./icons";
 
 function isSameOrigin(href) {
   // @ts-ignore
@@ -43,6 +43,40 @@ const crossOriginDownload = href => event => {
     })
 };
 
+const deleteImage = href => event => {
+  event.preventDefault();
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ data: [href] })
+};
+
+  fetch('http://localhost:4000/api/bucket/delete', requestOptions)
+    .then(res => {
+      if (!res.ok) {
+        console.error("Failed to delete image, HTTP status " + res.status +  " from " + href)
+      }
+
+      // might work, might not
+      const element = event.target
+      element.remove()
+
+      return
+
+      // return res.blob().then(blob => {
+      //   let tmpAnchor = document.createElement("a")
+      //   tmpAnchor.setAttribute("download", href.split("/").pop())
+      //   tmpAnchor.href = URL.createObjectURL(blob)
+      //   tmpAnchor.click()
+      // })
+    })
+    .catch(err => {
+      console.error(err)
+      console.error("Failed to download image from " + href)
+    })
+};
+
 
 const Header = ({
   image,
@@ -53,10 +87,16 @@ const Header = ({
   onClose,
   enableDownload,
   enableZoom,
-  enableRotate
+  enableRotate,
+  enableDelete,
 }) => (
   <div className="__react_modal_image__header">
     <span className="__react_modal_image__icon_menu">
+      {enableDelete && (
+        <a href={image} onClick={deleteImage(image)}>
+          <DeleteIcon />
+        </a>
+      )}
       {enableDownload && (
         <a href={image} download onClick={crossOriginDownload(image)}>
           <DownloadIcon />

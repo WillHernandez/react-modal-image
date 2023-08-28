@@ -142,6 +142,7 @@ export default class Lightbox extends Component {
       hideDownload,
       hideZoom,
       showRotate,
+      showDelete,
       imageBackgroundColor = "black"
     } = this.props;
     const { move, zoomed, rotationDeg } = this.state;
@@ -207,10 +208,12 @@ export default class Lightbox extends Component {
             zoomed={zoomed}
             toggleZoom={this.toggleZoom}
             toggleRotate={this.toggleRotate}
+            toggleDelete={this.toggleDelte}
             onClose={onClose}
             enableDownload={!hideDownload}
             enableZoom={!hideZoom}
             enableRotate={!!showRotate}
+            enableDelete={!!showDelete}
           />
         </div>
       </div>
