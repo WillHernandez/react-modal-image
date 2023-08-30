@@ -45,13 +45,13 @@ const crossOriginDownload = href => event => {
 
 const deleteImage = href => event => {
   event.preventDefault();
-  const requestOptions = {
+  const req = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ data: [href] })
 };
 
-  fetch('http://localhost:4000/api/bucket/delete', requestOptions)
+  fetch('http://localhost:4000/api/bucket/delete', req)
     .then(res => {
       if (!res.ok) {
         console.error("Failed to delete image, HTTP status " + res.status +  " from " + href)
