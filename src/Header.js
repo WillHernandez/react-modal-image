@@ -52,7 +52,7 @@ const deleteImage = href => event => {
       'Content-Type': 'application/json',
       authorization: "Bearer " + localStorage.getItem('accessToken')
     }, 
-    body: JSON.stringify({ urls: [href], username: localStorage.getItem('username') })
+    body: JSON.stringify({ urls: [href] })
   };
 
   fetch('https://file-storage-backend-original.onrender.com/api/bucket/delete', req)
