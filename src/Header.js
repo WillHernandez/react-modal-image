@@ -50,7 +50,7 @@ const deleteImage = href => event => {
 
   const req = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' }, 
     body: JSON.stringify({ urls: [href], username, accesstoken })
   };
 
