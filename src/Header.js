@@ -51,7 +51,8 @@ const deleteImage = href => event => {
     body: JSON.stringify({ urls: [href] })
 };
 
-  fetch('https://file-storage-backend-original.onrender.com/api/bucket/delete', req)
+  // fetch('https://file-storage-backend-original.onrender.com/api/bucket/delete', req)
+  fetch('http://localhost:4000/api/bucket/delete', req)
     .then(res => {
       if (!res.ok) {
         console.error("Failed to delete image, HTTP status " + res.status +  " from " + href)
