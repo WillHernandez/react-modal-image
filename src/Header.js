@@ -48,7 +48,7 @@ const deleteImage = href => event => {
   const req = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ data: [href] })
+    body: JSON.stringify({ urls: [href] })
 };
 
   fetch('https://file-storage-backend-original.onrender.com/api/bucket/delete', req)
