@@ -45,17 +45,17 @@ const crossOriginDownload = href => event => {
 
 const deleteImage = href => event => {
   event.preventDefault();
-  const username = localStorage.getItem('username')
-  const accesstoken = localStorage.getItem('accesstoken')
 
   const req = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' }, 
-    body: JSON.stringify({ urls: [href], username, accesstoken })
+    headers: { 
+      'Content-Type': 'application/json',
+      authorization: "Bearer " + localStorage.getItem('accessToken')
+    }, 
+    body: JSON.stringify({ urls: [href], username: localStorage.getItem('username') })
   };
 
-  // fetch('https://file-storage-backend-original.onrender.com/api/bucket/delete', req)
-  fetch('http://localhost:4000/api/bucket/delete', req)
+  fetch('https://file-storage-backend-original.onrender.com/api/bucket/delete', req)
     .then(res => {
       if (!res.ok) {
         console.error("Failed to delete image, HTTP status " + res.status +  " from " + href)
