@@ -60,15 +60,14 @@ const deleteImage = href => event => {
       if (!res.ok) {
         console.error("Failed to delete image, HTTP status " + res.status +  " from " + href)
       }
-
-      // removes container div for image
-      const containerDiv = event.target.closest("ul > div")
-      containerDiv.remove()
     })
     .catch(err => {
       console.error(err)
       console.error("Failed to download image from " + href)
     })
+    // removes container div for image
+    const containerDiv = event.target.closest("ul > div")
+    containerDiv.remove()
 };
 
 
